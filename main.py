@@ -1,4 +1,5 @@
 import time
+from create_user import *
 
 class MainMenu:
 
@@ -23,7 +24,17 @@ class MainMenu:
 		try:
 			if int(action) > 0 and int(action) < 7:
 				if action == "1":
+					user = User()
 					print("create a new user")
+					print("")
+					print("Enter full name")
+					full_name = input("> ")
+					print("")
+					print("Enter screen name")
+					screen_name = input("> ")
+					new_user = user.create_new_user(screen_name, full_name)
+					user.write_user_to_csv_file(new_user, "users.csv")
+
 				elif action == "2":
 					print("select a user")
 				elif action == "3":
@@ -39,7 +50,8 @@ class MainMenu:
 					time.sleep(1)
 					self.show_menu()
 
-		except ValueError:
+		except ValueError as ex:
+			print(ex)
 			print("")
 			print("Please enter a valid choice.")
 			print("")
