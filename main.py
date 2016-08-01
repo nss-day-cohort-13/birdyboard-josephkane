@@ -1,5 +1,5 @@
 import time
-from create_user import *
+from user import *
 from csv_methods import *
 
 class MainMenu:
@@ -9,7 +9,7 @@ class MainMenu:
 		print(" ~ WELCOME TO BIRDYBOARD ~ ")
 		self.users = dict()
 		try:
-			self.users = get_users_from_csv("users.csv").split(",")
+			self.users = get_users_from_csv("users.csv")
 		except FileNotFoundError:
 			pass
 

@@ -10,6 +10,5 @@ def write_user_to_csv_file(user, file):
 def get_users_from_csv(file):
 	with open("{}".format(file), "r", newline = "") as csv_file:
 		reader = csv.reader(csv_file)
-		return reader
-		# for user in reader:
-		# 	yield user
+		for user in reader:
+			yield user

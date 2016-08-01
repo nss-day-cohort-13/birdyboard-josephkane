@@ -1,7 +1,7 @@
 import unittest
-from create_user import *
+from user import *
 
-class TestCreateUser(unittest.TestCase):
+class TestUser(unittest.TestCase):
 
 	def test_new_user_is_user(self):
 		test_user = User()
