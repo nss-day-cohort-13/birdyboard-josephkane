@@ -1,11 +1,17 @@
 import time
 from create_user import *
+from csv_methods import *
 
 class MainMenu:
 
 	def __init__(self):
 		print("")
 		print(" ~ WELCOME TO BIRDYBOARD ~ ")
+		self.users = dict()
+		try:
+			self.users = get_users_from_csv("users.csv").split(",")
+		except FileNotFoundError:
+			pass
 
 	def show_menu(self):
 		"""
@@ -32,8 +38,10 @@ class MainMenu:
 					print("")
 					print("Enter screen name")
 					screen_name = input("> ")
-					new_user = user.create_new_user(screen_name, full_name)
-					user.write_user_to_csv_file(new_user, "users.csv")
+					user.full_name = full_name
+					user.screen_name = screen_name
+					user.user_id = user.random_id_generator()
+					write_user_to_csv_file(user, "users.csv")
 
 				elif action == "2":
 					print("select a user")
