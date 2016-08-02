@@ -8,8 +8,9 @@ class MainMenu:
 		print("")
 		print(" ~ WELCOME TO BIRDYBOARD ~ ")
 		self.users = dict()
+		self.current_user = None
 		try:
-			self.users = get_users_from_csv("users.csv")
+			self.users = get_users_from_csv_file("users.csv")
 		except FileNotFoundError:
 			pass
 
@@ -30,17 +31,13 @@ class MainMenu:
 		try:
 			if int(action) > 0 and int(action) < 7:
 				if action == "1":
-					user = User()
-					print("create a new user")
 					print("")
 					print("Enter full name")
 					full_name = input("> ")
 					print("")
 					print("Enter screen name")
 					screen_name = input("> ")
-					user.full_name = full_name
-					user.screen_name = screen_name
-					user.user_id = user.random_id_generator()
+					user = User(full_name, screen_name)
 					write_user_to_csv_file(user, "users.csv")
 
 				elif action == "2":

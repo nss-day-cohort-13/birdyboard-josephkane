@@ -3,10 +3,10 @@ import csv
 
 class User:
 
-	def __init__(self):
-		self.screen_name = None
-		self.full_name = None
-		self.user_id = None
+	def __init__(self, full_name, screen_name):
+		self.screen_name = screen_name
+		self.full_name = full_name
+		self.user_id = self.random_id_generator()
 
 	def random_id_generator(self):
 		random_id = int((random.random() + 1) * 10000)
