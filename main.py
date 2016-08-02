@@ -1,6 +1,7 @@
 import time
 from user import *
 from csv_methods import *
+from random_id_generator import *
 
 class MainMenu:
 
@@ -37,11 +38,27 @@ class MainMenu:
 					print("")
 					print("Enter screen name")
 					screen_name = input("> ")
-					user = User(full_name, screen_name)
+					user = User(full_name, screen_name, random_id_generator())
 					write_user_to_csv_file(user, "users.csv")
 
 				elif action == "2":
-					[print(" -" + key + ": " + value[0]) for key, value in self.users.items()]
+					print("")
+					print("Please choose a user:")
+					counter = 1
+					user_list = list()
+					for k, v in self.users.items():
+						print("{0}: {1}".format(counter, v[0]))
+						user_list.append(k)
+						counter += 1
+					selection = input("> ")
+					selected_user_id = user_list[int(selection) - 1]
+					current_user = User(
+						self.users[selected_user_id][1],
+						self.users[selected_user_id][0],
+						selected_user_id
+					)
+					self.current_user = current_user
+					print("Welcome, {}!".format(self.current_user.screen_name))
 				elif action == "3":
 					print("view all chirps")
 				elif action == "4":
