@@ -2,6 +2,7 @@ import time
 from user import *
 from csv_methods import *
 from random_id_generator import *
+from chirps import *
 
 class MainMenu:
 
@@ -19,6 +20,8 @@ class MainMenu:
 	def show_menu(self):
 		"""
 		Displays menu from which users will navigate app
+
+		Args- None
 		"""
 		print("")
 		print("What would you like to do?")
@@ -66,7 +69,16 @@ class MainMenu:
 				elif action == "3":
 					print("view all chirps")
 				elif action == "4":
-					print("new public chirp")
+					if self.current_user:
+						print("")
+						print("Enter new public chirp:")
+						user_input = input("> ")
+						public_chirp = PublicChirp(user_input, self.current_user.screen_name, random_id_generator())
+						write_public_chirp_to_csv_file(public_chirp, "chirps.csv")
+
+					else:
+						print("")
+						print("Please select a user first")
 				elif action == "5":
 					print("new private chirp")
 				elif action == "6":
