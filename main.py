@@ -41,7 +41,7 @@ class MainMenu:
 					write_user_to_csv_file(user, "users.csv")
 
 				elif action == "2":
-					print("select a user")
+					[print(" -" + key + ": " + value[0]) for key, value in self.users.items()]
 				elif action == "3":
 					print("view all chirps")
 				elif action == "4":
