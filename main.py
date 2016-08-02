@@ -56,7 +56,9 @@ class MainMenu:
 					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
 
 				elif action == "5":
-					print("new private chirp")
+					private_chirp = ChirpsUtility.new_private_chirp(self.current_user, self.users)
+					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
+
 				elif action == "6":
 					exit()
 

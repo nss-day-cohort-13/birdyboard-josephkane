@@ -67,5 +67,5 @@ class CSV:
 
 		Args- list of chirps (from CSV file)
 		"""
-		chirps_dict = {chirps[0]: [chirps[1], chirps[2]] for chirps in chirps_list}
+		chirps_dict = {chirps[0]: [chirps[1], chirps[2], chirps[3]] for chirps in chirps_list}
 		return chirps_dict
