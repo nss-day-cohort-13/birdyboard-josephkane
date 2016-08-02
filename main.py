@@ -40,6 +40,8 @@ class MainMenu:
 					screen_name = input("> ")
 					user = User(full_name, screen_name, random_id_generator())
 					write_user_to_csv_file(user, "users.csv")
+					self.current_user = user
+					print("Welcome, {}!".format(self.current_user.screen_name))
 
 				elif action == "2":
 					print("")
@@ -59,6 +61,7 @@ class MainMenu:
 					)
 					self.current_user = current_user
 					print("Welcome, {}!".format(self.current_user.screen_name))
+
 				elif action == "3":
 					print("view all chirps")
 				elif action == "4":
