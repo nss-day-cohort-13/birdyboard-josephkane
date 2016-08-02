@@ -3,7 +3,7 @@ from user import *
 from csv_utility import *
 from random_id_generator import *
 from chirps import *
-from view_chirps import *
+from chirps_utility import *
 from user_utility import *
 
 class MainMenu:
@@ -49,7 +49,7 @@ class MainMenu:
 					print("Welcome, {}!".format(self.current_user.screen_name))
 
 				elif action == "3":
-					view_chirps(self.chirps)
+					ChirpsUtility.view_chirps(self.chirps, self.current_user)
 
 				elif action == "4":
 					if self.current_user:
