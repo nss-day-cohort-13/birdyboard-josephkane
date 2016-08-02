@@ -12,6 +12,7 @@ class MainMenu:
 		self.current_user = None
 		try:
 			self.users = get_users_from_csv_file("users.csv")
+			self.chirps = get_chirps_from_csv_file("chirps.csv")
 		except FileNotFoundError:
 			pass
 
