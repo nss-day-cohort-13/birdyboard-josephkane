@@ -54,7 +54,7 @@ class ChirpsUtility:
 				random_id_generator()
 			)
 			CSV.write_public_chirp_to_csv_file(public_chirp, "chirps.csv")
-
+			return public_chirp
 		else:
 			print("")
 			print("Please select a user first")
@@ -67,7 +67,7 @@ class ChirpsUtility:
 		"""
 		if current_user != None:
 			print("")
-			recipient = UserUtility.select_a_user(users_dict)
+			recipient = UserUtility.select_a_user(users_dict, current_user)
 			print("Enter new private chirp:")
 			user_input = input("> ")
 			private_chirp = PrivateChirp(
@@ -77,7 +77,7 @@ class ChirpsUtility:
 				random_id_generator()
 			)
 			CSV.write_private_chirp_to_csv_file(private_chirp, "chirps.csv")
-
+			return private_chirp
 		else:
 			print("")
 			print("Please select a user first")

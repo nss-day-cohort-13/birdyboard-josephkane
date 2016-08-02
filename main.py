@@ -45,7 +45,7 @@ class MainMenu:
 					print("Welcome, {}!".format(self.current_user.screen_name))
 
 				elif action == "2":
-					self.current_user = UserUtility.select_a_user(self.users)
+					self.current_user = UserUtility.select_a_user(self.users, self.current_user)
 					print("Welcome, {}!".format(self.current_user.screen_name))
 
 				elif action == "3":

@@ -14,15 +14,21 @@ class UserUtility:
 
 		return user
 
-	def select_a_user(users_dict):
+	def select_a_user(users_dict, current_user):
 		print("")
 		print("Please choose a user:")
 		counter = 1
 		user_list = list()
 		for k, v in users_dict.items():
-			print("{0}: {1}".format(counter, v[0]))
-			user_list.append(k)
-			counter += 1
+			if current_user:
+				if v[0] != current_user.screen_name:
+					print("{0}: {1}".format(counter, v[0]))
+					user_list.append(k)
+					counter += 1
+			else:
+				print("{0}: {1}".format(counter, v[0]))
+				user_list.append(k)
+				counter += 1
 		selection = input("> ")
 		selected_user_id = user_list[int(selection) - 1]
 		current_user = User(

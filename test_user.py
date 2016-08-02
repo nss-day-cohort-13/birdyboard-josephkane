@@ -1,5 +1,6 @@
 import unittest
 from user import *
+from random_id_generator import *
 
 class TestUser(unittest.TestCase):
 
