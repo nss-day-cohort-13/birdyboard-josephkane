@@ -3,6 +3,7 @@ from user import *
 from csv_methods import *
 from random_id_generator import *
 from chirps import *
+from view_chirps import *
 
 class MainMenu:
 
@@ -67,13 +68,17 @@ class MainMenu:
 					print("Welcome, {}!".format(self.current_user.screen_name))
 
 				elif action == "3":
-					print("view all chirps")
+					view_chirps(self.chirps)
 				elif action == "4":
 					if self.current_user:
 						print("")
 						print("Enter new public chirp:")
 						user_input = input("> ")
-						public_chirp = PublicChirp(user_input, self.current_user.screen_name, random_id_generator())
+						public_chirp = PublicChirp(
+							user_input,
+							self.current_user.screen_name,
+							random_id_generator()
+						)
 						write_public_chirp_to_csv_file(public_chirp, "chirps.csv")
 
 					else:

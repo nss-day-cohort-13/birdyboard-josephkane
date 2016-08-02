@@ -58,10 +58,10 @@ def get_chirps_from_csv_file(file):
 	Args- filepath
 	"""
 	with open("{}".format(file), "r", newline = "") as csv_file:
-		reader = build_chirp_dict(csv.reader(csv_file))
+		reader = build_chirps_dict(csv.reader(csv_file))
 		return reader
 
-def build_chirps_dict(user_list):
+def build_chirps_dict(chirps_list):
 	"""
 	Builds a chirps dictionary from a list provided by a CSV file
 
