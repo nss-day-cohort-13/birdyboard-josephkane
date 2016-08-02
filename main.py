@@ -52,20 +52,9 @@ class MainMenu:
 					ChirpsUtility.view_chirps(self.chirps, self.current_user)
 
 				elif action == "4":
-					if self.current_user:
-						print("")
-						print("Enter new public chirp:")
-						user_input = input("> ")
-						public_chirp = PublicChirp(
-							user_input,
-							self.current_user.screen_name,
-							random_id_generator()
-						)
-						CSV.write_public_chirp_to_csv_file(public_chirp, "chirps.csv")
+					public_chirp = ChirpsUtility.new_public_chirp(self.current_user)
+					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
 
-					else:
-						print("")
-						print("Please select a user first")
 				elif action == "5":
 					print("new private chirp")
 				elif action == "6":

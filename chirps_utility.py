@@ -1,3 +1,7 @@
+from chirps import *
+from csv_utility import *
+from random_id_generator import *
+
 class ChirpsUtility:
 
 	def view_chirps(chirps_dict, current_user):
@@ -29,3 +33,19 @@ class ChirpsUtility:
 			print("{0}. {1}: {2}".format(counter, v[0], v[1]))
 			chirps_id_list.append(k)
 			counter += 1
+
+	def new_public_chirp(current_user):
+		if current_user != None:
+			print("")
+			print("Enter new public chirp:")
+			user_input = input("> ")
+			public_chirp = PublicChirp(
+				user_input,
+				current_user.screen_name,
+				random_id_generator()
+			)
+			CSV.write_public_chirp_to_csv_file(public_chirp, "chirps.csv")
+
+		else:
+			print("")
+			print("Please select a user first")
