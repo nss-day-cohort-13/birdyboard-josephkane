@@ -31,7 +31,7 @@ class CSV:
 		user_dict = {user[0]: [user[1], user[2]] for user in user_list}
 		return user_dict
 
-	def write_public_chirp_to_csv_file(chirp, file):
+	def write_chirp_to_csv_file(chirp, file):
 		"""
 		Writes public chirp object to a CSV file
 
@@ -39,17 +39,7 @@ class CSV:
 		"""
 		with open("{}".format(file), "a+", newline = "") as csv_file:
 			writer = csv.writer(csv_file)
-			writer.writerow([chirp.chirp_id, chirp.author, chirp.message, chirp.permission])
-
-	def write_private_chirp_to_csv_file(chirp, file):
-		"""
-		Writes private chirp object to a CSV file
-
-		Args- private chirp object, filepath
-		"""
-		with open("{}".format(file), "a+", newline = "") as csv_file:
-			writer = csv.writer(csv_file)
-			writer.writerow([chirp.chirp_id, chirp.author, chirp.recipient, chirp.message, chirp.permission])
+			writer.writerow([chirp.chirp_id, chirp.author, chirp.message, chirp.private, chirp.recipient])
 
 	def get_chirps_from_csv_file(file):
 		"""
@@ -67,5 +57,5 @@ class CSV:
 
 		Args- list of chirps (from CSV file)
 		"""
-		chirps_dict = {chirps[0]: [chirps[1], chirps[2], chirps[3]] for chirps in chirps_list}
+		chirps_dict = {chirps[0]: [chirps[1], chirps[2], chirps[3], chirps[4]] for chirps in chirps_list}
 		return chirps_dict
