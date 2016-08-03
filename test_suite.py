@@ -8,7 +8,6 @@ from csv_utility import *
 from test_chirps import *
 from test_csv_methods import *
 from test_user import *
-from test_random_id import *
 
 if __name__ == "__main__":
 	unittest.main()

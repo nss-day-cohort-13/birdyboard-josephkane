@@ -6,8 +6,8 @@ class TestChirp(unittest.TestCase):
 
 	@classmethod
 	def setUpClass(self):
-		self.public = PublicChirp("Hello!", "jkane", random_id_generator())
-		self.private = PrivateChirp("Hello!", "jkane", "rtanay", random_id_generator())
+		self.public = Chirp("Hello!", "jkane", random_id_generator())
+		self.private = Chirp("Hello!", "jkane", random_id_generator(), private=True, recipient="rtanay")
 
 	def test_public_and_private_chirps_are_chirps(self):
 		self.assertIsInstance(self.public, Chirp)
@@ -16,13 +16,13 @@ class TestChirp(unittest.TestCase):
 	def test_public_chirp_creation(self):
 		self.assertEqual(self.public.author, "jkane")
 		self.assertEqual(self.public.message, "Hello!")
-		self.assertEqual(self.public.permission, "public")
+		self.assertEqual(self.public.private, False)
 
 	def test_private_chirp_creation(self):
 		self.assertEqual(self.private.author, "jkane")
 		self.assertEqual(self.private.recipient, "rtanay")
 		self.assertEqual(self.private.message, "Hello!")
-		self.assertEqual(self.private.permission, "private")
+		self.assertEqual(self.private.private, True)
 
 if __name__ == "__main__":
 	unittest.main()

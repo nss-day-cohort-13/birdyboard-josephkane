@@ -1,4 +1,4 @@
-import random
+import uuid
 
 def random_id_generator():
 	"""
@@ -6,5 +6,5 @@ def random_id_generator():
 
 	Args- None
 	"""
-	random_id = int((random.random() + 1) * 10000)
+	random_id = uuid.uuid4()
 	return random_id
