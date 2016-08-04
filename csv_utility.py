@@ -27,7 +27,7 @@ class CSV:
 
 		Args- filepath
 		"""
-		with open("{}".format(file), "r", newline = "") as csv_file:
+		with open("{}".format(file), "r+", newline = "") as csv_file:
 			reader = CSV.build_dict_from_list(csv.reader(csv_file))
 			return reader
 
@@ -57,7 +57,7 @@ class CSV:
 
 		Args- filepath
 		"""
-		with open("{}".format(file), "r", newline = "") as csv_file:
+		with open("{}".format(file), "r+", newline = "") as csv_file:
 			reader = CSV.build_dict_from_list(csv.reader(csv_file))
 			return reader
 
@@ -77,6 +77,6 @@ class CSV:
 
 		Args- filepath
 		"""
-		with open("{}".format(file), "r", newline = "") as csv_file:
+		with open("{}".format(file), "r+", newline = "") as csv_file:
 			reader = CSV.build_dict_from_list(csv.reader(csv_file))
 			return reader

@@ -11,7 +11,7 @@ class ConvoUtility:
 		"""
 		if current_user != None:
 			public_convo = PublicConvo(chirp_id)
-			CSV.write_public_convo_to_csv_file(public_convo, "convos.csv")
+			CSV.write_public_convo_to_csv_file(public_convo, "public_convos.csv")
 			return public_convo
 		else:
 			print("\nPlease select a user first")

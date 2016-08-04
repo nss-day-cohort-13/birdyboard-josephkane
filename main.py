@@ -15,11 +15,13 @@ class MainMenu:
 		self.users = None
 		self.chirps = None
 		self.current_user = None
-		self.conversations = None
+		self.public_conversations = None
+		self.private_conversations = None
 		try:
 			self.users = CSV.get_users_from_csv_file("users.csv")
 			self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
-			self.conversations = CSV.get_convos_from_csv_file("conversations.csv")
+			self.public_conversations = CSV.get_convos_from_csv_file("public_convos.csv")
+			self.private_conversations = CSV.get_convos_from_csv_file("private_convos.csv")
 		except FileNotFoundError:
 			pass
 
@@ -57,17 +59,25 @@ class MainMenu:
 						print("No users are registered.")
 
 				elif action == "3":
-					ChirpsUtility.view_chirps(self.chirps, self.current_user)
+					selected_chirp_id = ChirpsUtility.view_chirps(
+						self.public_conversations,
+						self.private_conversations,
+						self.chirps,
+						self.current_user
+					)
+					print("main.py: ", selected_chirp_id)
 
 				elif action == "4":
 					public_chirp = ChirpsUtility.new_public_chirp(self.current_user)
 					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
 					convo = ConvoUtility.new_public_convo(public_chirp.chirp_id, self.current_user)
-					self.public_conversations = CSV.get_convos_from_csv_file("convos.csv")
+					self.public_conversations = CSV.get_convos_from_csv_file("public_convos.csv")
 
 				elif action == "5":
 					private_chirp = ChirpsUtility.new_private_chirp(self.current_user, self.users)
 					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
+					convo = ConvoUtility.new_private_convo(private_chirp.chirp_id, self.current_user)
+					self.private_conversations = CSV.get_convos_from_csv_file("private_convos.csv")
 
 				elif action == "6":
 					exit()

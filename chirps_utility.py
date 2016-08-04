@@ -5,7 +5,7 @@ from random_id_generator import *
 
 class ChirpsUtility:
 
-	def view_chirps(chirps_dict, current_user):
+	def view_chirps(public_convos, private_convos, chirps_dict, current_user):
 		"""
 		Prints out all public and private chirps that the current user is a part of
 
@@ -14,27 +14,37 @@ class ChirpsUtility:
 		counter = 1
 		if current_user != None:
 			print("\n ~ PRIVATE CHIRPS ~ ")
-			for k, v in chirps_dict.items():
-				if v[1] == current_user.screen_name:
-					print("{0}. {1}: {2}".format(counter, v[0], v[2]))
+			for k, v in private_convos.items():
+				if chirps_dict[k][1] == current_user.screen_name:
+					print("{0}. {1}: {2}".format(counter, chirps_dict[k][0], chirps_dict[k][2]))
 					counter += 1
-			ChirpsUtility.print_public_chirps(chirps_dict, counter)
+			return ChirpsUtility.print_public_chirps(public_convos, chirps_dict, counter)
 		else:
-			ChirpsUtility.print_public_chirps(chirps_dict, counter)
+			return ChirpsUtility.print_public_chirps(public_convos, chirps_dict, counter)
 
-	def print_public_chirps(chirps_dict, counter):
+	def print_public_chirps(public_convos, chirps_dict, counter):
 		"""
 		Loops through chirps dictionary and prints out each one
+		Takes user input and sends back chirp id for the selected chirp
 
 		Args- chirps dictionary, counter value post private chirps
 		"""
 		print("\n ~ PUBLIC CHIRPS ~ ")
 		chirps_id_list = list()
-		for k, v in chirps_dict.items():
-			if v[2] == "public":
-				print("{0}. {1}: {2}".format(counter, v[0], v[1]))
-				chirps_id_list.append(k)
-				counter += 1
+		for k, v in public_convos.items():
+			print("{0}. {1}: {2}".format(counter, chirps_dict[v[0]][0], chirps_dict[v[0]][1]))
+			chirps_id_list.append(v[0])
+			counter += 1
+		print("\nSelect a chirp")
+		chirp = input("> ")
+		try:
+			print("selected chirp id: ", chirps_id_list[int(chirp) - 1])
+			if int(chirp) <= counter:
+				selected_chirp_id = chirps_id_list[int(chirp) - 1]
+				return selected_chirp_id
+		except IndexError as ex:
+			print("\n{}".format(ex))
+			print("Sorry, thats an invalid entry. Try again:\n")
 
 	def new_public_chirp(current_user):
 		"""
