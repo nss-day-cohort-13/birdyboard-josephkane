@@ -8,6 +8,9 @@ from csv_utility import *
 from test_chirps import *
 from test_csv_methods import *
 from test_user import *
+from test_conversation import *
 
 if __name__ == "__main__":
 	unittest.main()
+
+# python -m unittest discover -s . -p "test*.py" -v
