@@ -5,17 +5,21 @@ from random_id_generator import *
 from chirps import *
 from chirps_utility import *
 from user_utility import *
+from convo_utility import *
 
 class MainMenu:
 
 	def __init__(self):
 		print("")
 		print(" ~ WELCOME TO BIRDYBOARD ~ ")
-		self.users = dict()
+		self.users = None
+		self.chirps = None
 		self.current_user = None
+		self.conversations = None
 		try:
 			self.users = CSV.get_users_from_csv_file("users.csv")
 			self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
+			self.conversations = CSV.get_convos_from_csv_file("conversations.csv")
 		except FileNotFoundError:
 			pass
 
@@ -45,8 +49,12 @@ class MainMenu:
 					print("Welcome, {}!".format(self.current_user.screen_name))
 
 				elif action == "2":
-					self.current_user = UserUtility.select_a_user(self.users, self.current_user)
-					print("Welcome, {}!".format(self.current_user.screen_name))
+					try:
+						self.current_user = UserUtility.select_a_user(self.users, self.current_user)
+						print("Welcome, {}!".format(self.current_user.screen_name))
+					except AttributeError:
+						print("")
+						print("No users are registered.")
 
 				elif action == "3":
 					ChirpsUtility.view_chirps(self.chirps, self.current_user)
@@ -54,6 +62,8 @@ class MainMenu:
 				elif action == "4":
 					public_chirp = ChirpsUtility.new_public_chirp(self.current_user)
 					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
+					convo = ConvoUtility.new_public_convo(public_chirp.chirp_id, self.current_user)
+					self.public_conversations = CSV.get_convos_from_csv_file("convos.csv")
 
 				elif action == "5":
 					private_chirp = ChirpsUtility.new_private_chirp(self.current_user, self.users)

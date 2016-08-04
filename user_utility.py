@@ -4,8 +4,7 @@ from random_id_generator import *
 class UserUtility:
 
 	def create_user():
-		print("")
-		print("Enter full name")
+		print("\nEnter full name")
 		full_name = input("> ")
 		print("")
 		print("Enter screen name")
@@ -15,8 +14,7 @@ class UserUtility:
 		return user
 
 	def select_a_user(users_dict, current_user):
-		print("")
-		print("Please choose a user:")
+		print("\nPlease choose a user:")
 		counter = 1
 		user_list = list()
 		for k, v in users_dict.items():

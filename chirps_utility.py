@@ -13,13 +13,11 @@ class ChirpsUtility:
 		"""
 		counter = 1
 		if current_user != None:
-			print("")
-			print(" ~ PRIVATE CHIRPS ~ ")
+			print("\n ~ PRIVATE CHIRPS ~ ")
 			for k, v in chirps_dict.items():
 				if v[1] == current_user.screen_name:
 					print("{0}. {1}: {2}".format(counter, v[0], v[2]))
 					counter += 1
-			print("")
 			ChirpsUtility.print_public_chirps(chirps_dict, counter)
 		else:
 			ChirpsUtility.print_public_chirps(chirps_dict, counter)
@@ -30,7 +28,7 @@ class ChirpsUtility:
 
 		Args- chirps dictionary, counter value post private chirps
 		"""
-		print(" ~ PUBLIC CHIRPS ~ ")
+		print("\n ~ PUBLIC CHIRPS ~ ")
 		chirps_id_list = list()
 		for k, v in chirps_dict.items():
 			if v[2] == "public":
@@ -45,8 +43,7 @@ class ChirpsUtility:
 		Args- currently selected user
 		"""
 		if current_user != None:
-			print("")
-			print("Enter new public chirp:")
+			print("\nEnter new public chirp:")
 			user_input = input("> ")
 			public_chirp = PublicChirp(
 				user_input,
@@ -56,8 +53,7 @@ class ChirpsUtility:
 			CSV.write_public_chirp_to_csv_file(public_chirp, "chirps.csv")
 			return public_chirp
 		else:
-			print("")
-			print("Please select a user first")
+			print("\nPlease select a user first")
 
 	def new_private_chirp(current_user, users_dict):
 		"""
@@ -66,9 +62,8 @@ class ChirpsUtility:
 		Args- currently selected user, dictionary of users
 		"""
 		if current_user != None:
-			print("")
 			recipient = UserUtility.select_a_user(users_dict, current_user)
-			print("Enter new private chirp:")
+			print("\nEnter new private chirp:")
 			user_input = input("> ")
 			private_chirp = PrivateChirp(
 				user_input,
@@ -79,5 +74,4 @@ class ChirpsUtility:
 			CSV.write_private_chirp_to_csv_file(private_chirp, "chirps.csv")
 			return private_chirp
 		else:
-			print("")
-			print("Please select a user first")
+			print("\nPlease select a user first")
