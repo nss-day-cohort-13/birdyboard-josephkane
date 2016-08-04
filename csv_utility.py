@@ -61,7 +61,7 @@ class CSV:
 			reader = CSV.build_dict_from_list(csv.reader(csv_file))
 			return reader
 
-	def write_public_convo_to_csv_file(convo, file):
+	def write_convo_to_csv_file(convo, file):
 		"""
 		Writes public conversation object to a CSV file
 
