@@ -15,17 +15,20 @@ class ChirpsUtility:
 		counter = 1
 		chirps_id_list = list()
 		if current_user != None:
-			print("\n ~ PRIVATE CHIRPS ~ ")
-			for k, v in private_convos.items():
-				if chirps_dict[v[0]][1] == current_user.screen_name:
-					print("{0}. {1}: {2}".format(counter, chirps_dict[v[0]][0], chirps_dict[v[0]][2]))
-					chirps_id_list.append(v[0])
-					counter += 1
-				elif chirps_dict[v[0]][0] == current_user.screen_name:
-					print("{0}. to {1}: {2}".format(counter, chirps_dict[v[0]][1], chirps_dict[v[0]][2]))
-					chirps_id_list.append(v[0])
-					counter += 1
-			return ChirpsUtility.print_public_chirps(public_convos, chirps_id_list, chirps_dict, counter)
+			try:
+				print("\n ~ PRIVATE CHIRPS ~ ")
+				for k, v in private_convos.items():
+					if chirps_dict[v[0]][1] == current_user.screen_name:
+						print("{0}. {1}: {2}".format(counter, chirps_dict[v[0]][0], chirps_dict[v[0]][2]))
+						chirps_id_list.append(v[0])
+						counter += 1
+					elif chirps_dict[v[0]][0] == current_user.screen_name:
+						print("{0}. to {1}: {2}".format(counter, chirps_dict[v[0]][1], chirps_dict[v[0]][2]))
+						chirps_id_list.append(v[0])
+						counter += 1
+				return ChirpsUtility.print_public_chirps(public_convos, chirps_id_list, chirps_dict, counter)
+			except AttributeError:
+				return ChirpsUtility.print_public_chirps(public_convos, chirps_id_list, chirps_dict, counter)
 		else:
 			return ChirpsUtility.print_public_chirps(public_convos, chirps_id_list, chirps_dict, counter)
 
@@ -44,7 +47,6 @@ class ChirpsUtility:
 		print("\nSelect a chirp, or enter 'q' to quit")
 		chirp = input("> ")
 		try:
-			print("selected chirp id: ", chirps_id_list[int(chirp) - 1])
 			if int(chirp) <= counter:
 				selected_chirp_id = chirps_id_list[int(chirp) - 1]
 				return selected_chirp_id

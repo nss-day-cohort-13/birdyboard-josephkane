@@ -6,5 +6,5 @@ def random_id_generator():
 
 	Args- None
 	"""
-	random_id = uuid.uuid4()
+	random_id = str(uuid.uuid4())
 	return random_id

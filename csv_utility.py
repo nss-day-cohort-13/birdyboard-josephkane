@@ -61,15 +61,34 @@ class CSV:
 			reader = CSV.build_dict_from_list(csv.reader(csv_file))
 			return reader
 
-	def write_convo_to_csv_file(convo, file):
+	def write_new_convos_to_csv_file(convo_dict, file):
 		"""
-		Writes public conversation object to a CSV file
+		Writes conversations dict to a CSV file
 
-		Args- public conversation object, filepath
+		Args- conversation dict, filepath
 		"""
-		with open("{}".format(file), "a+", newline = "") as csv_file:
-			writer = csv.writer(csv_file)
-			writer.writerow([convo.convo_id, convo.chirp_list])
+		with open("{}".format(file), "w+", newline = "") as csv_file:
+			for k, v in convo_dict.items():
+				print("key: ", k)
+				print("value: ", v)
+				writer = csv.writer(csv_file)
+				some_list = [k]
+				some_list.extend(v)
+				writer.writerow(some_list)
+
+
+	def write_updated_convos_to_csv_file(convo_dict, file):
+		"""
+		Writes conversations dict to a CSV file
+
+		Args- conversation dict, filepath
+		"""
+		with open("{}".format(file), "w+", newline = "") as csv_file:
+			for k, v in convo_dict.items():
+				writer = csv.writer(csv_file)
+				some_list = [k]
+				some_list.extend([d for d in v])
+				writer.writerow(some_list)
 
 	def get_convos_from_csv_file(file):
 		"""

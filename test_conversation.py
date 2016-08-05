@@ -6,8 +6,8 @@ class TestConvo(unittest.TestCase):
 
 	@classmethod
 	def setUpClass(self):
-		self.public_convo = PublicConvo([735284, 937352, 573519])
-		self.private_convo = PrivateConvo([735284, 937352, 573519])
+		self.public_convo = PublicConvo([735284, 937352, 573519], 746342)
+		self.private_convo = PrivateConvo([735284, 937352, 573519], 735953)
 
 	def test_convo_is_a_conversation(self):
 		self.assertIsInstance(self.public_convo, Conversation)
