@@ -1,5 +1,5 @@
 from conversation import *
-from chirps_utility import *
+import chirps_utility
 from csv_utility import *
 from random_id_generator import *
 
@@ -34,12 +34,13 @@ class ConvoUtility:
 		Allows users to reply to a selected chirp
 
 		Args-
-			selected chirp,
-			conversation that chirp is a part of,
+			list of all chirps,
+			conversation selected chirp is a part of,
 			currently selected user
 		"""
+		print("")
 		for id_num in convo_list:
-			print("\n {0}: {1}".format(chirp_list[id_num][0], chirp_list[id_num][1]))
-		reply_chirp = ChirpsUtility.new_public_chirp(current_user)
+			print("{0}: {1}".format(chirp_list[id_num][0], chirp_list[id_num][1]))
+		reply_chirp = chirps_utility.ChirpsUtility.new_public_chirp(current_user)
 		convo_list.append(reply_chirp.chirp_id)
 		return convo_list
