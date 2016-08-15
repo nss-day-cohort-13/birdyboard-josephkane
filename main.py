@@ -44,7 +44,12 @@ class MainMenu:
 		try:
 			if int(action) > 0 and int(action) < 7:
 				if action == "1":
-					user = UserUtility.create_user()
+					print("\nEnter full name")
+					full_name = input("> ")
+					print("")
+					print("Enter screen name")
+					screen_name = input("> ")
+					user = UserUtility.create_user(full_name, screen_name)
 					CSV.write_user_to_csv_file(user, "users.csv")
 					self.current_user = user
 					self.users = CSV.get_users_from_csv_file("users.csv")

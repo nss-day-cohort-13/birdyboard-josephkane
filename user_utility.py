@@ -3,14 +3,8 @@ from random_id_generator import *
 
 class UserUtility:
 
-	def create_user():
-		print("\nEnter full name")
-		full_name = input("> ")
-		print("")
-		print("Enter screen name")
-		screen_name = input("> ")
+	def create_user(full_name, screen_name):
 		user = User(full_name, screen_name, random_id_generator())
-
 		return user
 
 	def select_a_user(users_dict, current_user):
