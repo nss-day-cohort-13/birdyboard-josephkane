@@ -44,3 +44,20 @@ class ConvoUtility:
 		reply_chirp = chirps_utility.ChirpsUtility.new_public_chirp(current_user)
 		convo_list.append(reply_chirp.chirp_id)
 		return convo_list
+
+	def show_private_reply_menu(chirp_dict, convo_list, current_user):
+		"""
+		Allows users to reply to a selected chirp
+
+		Args-
+			dict of all chirps,
+			conversation selected chirp is a part of,
+			currently selected user
+		"""
+		print("chirp list: ", chirp_dict)
+		print("convo list: ", convo_list)
+		for id_num in convo_list:
+			print("\n{0}: {1}".format(chirp_dict[id_num][0], chirp_dict[id_num][1]))
+		reply_chirp = chirps_utility.ChirpsUtility.new_private_chirp(current_user)
+		convo_list.append(reply_chirp.chirp_id)
+		return convo_list

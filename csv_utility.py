@@ -69,8 +69,6 @@ class CSV:
 		"""
 		with open("{}".format(file), "w+", newline = "") as csv_file:
 			for k, v in convo_dict.items():
-				print("key: ", k)
-				print("value: ", v)
 				writer = csv.writer(csv_file)
 				some_list = [k]
 				some_list.extend(v)

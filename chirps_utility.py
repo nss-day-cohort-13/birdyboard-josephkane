@@ -29,6 +29,8 @@ class ChirpsUtility:
 				return ChirpsUtility.print_public_chirps(public_convos, chirps_id_list, chirps_dict, counter)
 			except AttributeError:
 				return ChirpsUtility.print_public_chirps(public_convos, chirps_id_list, chirps_dict, counter)
+			except KeyError:
+				return ChirpsUtility.print_public_chirps(public_convos, chirps_id_list, chirps_dict, counter)
 		else:
 			return ChirpsUtility.print_public_chirps(public_convos, chirps_id_list, chirps_dict, counter)
 

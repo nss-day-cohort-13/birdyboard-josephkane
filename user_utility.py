@@ -4,10 +4,21 @@ from random_id_generator import *
 class UserUtility:
 
 	def create_user(full_name, screen_name):
+		"""
+		Creates and returns a new user
+
+		Args-user full name, user screen name
+		"""
 		user = User(full_name, screen_name, random_id_generator())
 		return user
 
 	def select_a_user(users_dict, current_user):
+		"""
+		Displays a list of users (all users if current use is none, all but current user if not),
+		selects and returns new user based on input
+
+		Args-dictionary of signed-up users, currently logged in user (may be None)
+		"""
 		print("\nPlease choose a user:")
 		counter = 1
 		user_list = list()

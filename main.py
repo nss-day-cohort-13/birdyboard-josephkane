@@ -12,11 +12,11 @@ class MainMenu:
 	def __init__(self):
 		print("")
 		print(" ~ WELCOME TO BIRDYBOARD ~ ")
-		self.users = None
-		self.chirps = None
-		self.current_user = None
-		self.public_conversations = None
-		self.private_conversations = None
+		self.users = {}
+		self.chirps = {}
+		self.current_user = {}
+		self.public_conversations = {}
+		self.private_conversations = {}
 		try:
 			self.users = CSV.get_users_from_csv_file("users.csv")
 			self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
@@ -82,6 +82,21 @@ class MainMenu:
 							CSV.write_updated_convos_to_csv_file(self.public_conversations, "public_convos.csv")
 							self.public_conversations = CSV.get_convos_from_csv_file("public_convos.csv")
 							self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
+						else:
+							for k, v in self.private_conversations.items():
+								if selected_chirp_id in v:
+									print("\nprivate")
+									print("\nSELECTED CHIRP ID: ", selected_chirp_id)
+									print("\nPRIVATE CONVOS: ", self.private_conversations)
+									updated_convo = ConvoUtility.show_private_reply_menu(
+										self.chirps,
+										self.private_conversations[selected_chirp_id],
+										self.current_user
+										)
+									self.private_conversations[k] = updated_convo
+									CSV.write_updated_convos_to_csv_file(self.private_conversations, "private_convos.csv")
+									self.private_conversations = CSV.get_convos_from_csv_file("private_convos.csv")
+									self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
 
 				elif action == "4":
 					public_chirp = ChirpsUtility.new_public_chirp(self.current_user)
@@ -89,12 +104,15 @@ class MainMenu:
 					convo = ConvoUtility.new_public_convo([public_chirp.chirp_id], self.current_user)
 					self.public_conversations[convo.convo_id] = convo.chirp_list
 					CSV.write_new_convos_to_csv_file(self.public_conversations, "public_convos.csv")
+					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
 
 				elif action == "5":
 					private_chirp = ChirpsUtility.new_private_chirp(self.current_user, self.users)
 					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
+					convo = ConvoUtility.new_private_convo([private_chirp.chirp_id], self.current_user)
 					self.private_conversations[convo.convo_id] = convo.chirp_list
 					CSV.write_new_convos_to_csv_file(self.private_conversations, "private_convos.csv")
+					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
 
 				elif action == "6":
 					exit()
@@ -105,9 +123,7 @@ class MainMenu:
 
 		except ValueError as ex:
 			print(ex)
-			print("")
-			print("Please enter a valid choice.")
-			print("")
+			print("\nPlease enter a valid choice.\n")
 			time.sleep(1)
 			self.show_menu()
 
