@@ -44,18 +44,23 @@ class MainMenu:
 		try:
 			if int(action) > 0 and int(action) < 7:
 				if action == "1":
+					# take user input and use to create new User()
 					print("\nEnter full name")
 					full_name = input("> ")
 					print("")
 					print("Enter screen name")
 					screen_name = input("> ")
 					user = UserUtility.create_user(full_name, screen_name)
+					# write User() info to CSV file
 					CSV.write_user_to_csv_file(user, "users.csv")
+					# set current user property
 					self.current_user = user
+					# set users property from users CSV file
 					self.users = CSV.get_users_from_csv_file("users.csv")
 					print("Welcome, {}!".format(self.current_user.screen_name))
 
 				elif action == "2":
+					# make sure there are users to choose from
 					try:
 						self.current_user = UserUtility.select_a_user(self.users, self.current_user)
 						print("Welcome, {}!".format(self.current_user.screen_name))
@@ -64,25 +69,35 @@ class MainMenu:
 						print("No users are registered.")
 
 				elif action == "3":
+					# display and select conversation thread
 					selected_convo_id = ChirpsUtility.view_chirps(
 						self.public_conversations,
 						self.private_conversations,
 						self.chirps,
 						self.current_user
 					)
+					# if user selected a public convo
 					if selected_convo_id[1] == "public":
+						# get selected conversation
 						chirp_list = self.public_conversations[selected_convo_id[0]]
+						# show all/add replies to selected convo
 						updated_convo = ConvoUtility.show_public_reply_menu(
 								self.chirps,
 								chirp_list,
 								self.current_user.screen_name
 								)
+						# add updated convo to public convo property
 						self.public_conversations[selected_convo_id[0]] = updated_convo
+						# write updated convo to CSV file
 						CSV.write_updated_convos_to_csv_file(self.public_conversations, "public_convos.csv")
+						# set public convo property from CSV file
 						self.public_conversations = CSV.get_convos_from_csv_file("public_convos.csv")
+						# set chirps property from CSV file
 						self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
+					# if user selected private convo
 					elif selected_convo_id[1] == "private":
 						chirp_list = self.private_conversations[selected_convo_id[0]]
+						# show all replies in private convo and add private reply
 						updated_convo = ConvoUtility.show_private_reply_menu(
 								self.chirps,
 								chirp_list,
@@ -94,12 +109,17 @@ class MainMenu:
 						self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
 
 				elif action == "4":
+					# create new PublicChirp()
 					public_chirp = ChirpsUtility.new_public_chirp(self.current_user.screen_name)
+					# set chirps property from CSV file
 					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
+					# create new PublicConvo() from new PublicChirp()
 					convo = ConvoUtility.new_public_convo([public_chirp.chirp_id], self.current_user)
+					# add new PublicConvo() to public_conversations property
 					self.public_conversations[convo.convo_id] = convo.chirp_list
+					# write public_conversations property to CSV file
 					CSV.write_new_convos_to_csv_file(self.public_conversations, "public_convos.csv")
-					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
+					# self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
 
 				elif action == "5":
 					private_chirp = ChirpsUtility.new_private_chirp(self.current_user.screen_name, self.users)
@@ -107,7 +127,7 @@ class MainMenu:
 					convo = ConvoUtility.new_private_convo([private_chirp.chirp_id], self.current_user)
 					self.private_conversations[convo.convo_id] = convo.chirp_list
 					CSV.write_new_convos_to_csv_file(self.private_conversations, "private_convos.csv")
-					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
+					# self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
 
 				elif action == "6":
 					exit()
