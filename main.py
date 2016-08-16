@@ -64,42 +64,37 @@ class MainMenu:
 						print("No users are registered.")
 
 				elif action == "3":
-					selected_chirp_id = ChirpsUtility.view_chirps(
+					selected_convo_id = ChirpsUtility.view_chirps(
 						self.public_conversations,
 						self.private_conversations,
 						self.chirps,
 						self.current_user
 					)
-					chirp_permission = None
-					for k, v in self.public_conversations.items():
-						if selected_chirp_id in v:
-							updated_convo = ConvoUtility.show_public_reply_menu(
+					if selected_convo_id[1] == "public":
+						chirp_list = self.public_conversations[selected_convo_id[0]]
+						updated_convo = ConvoUtility.show_public_reply_menu(
 								self.chirps,
-								v,
-								self.current_user
+								chirp_list,
+								self.current_user.screen_name
 								)
-							self.public_conversations[k] = updated_convo
-							CSV.write_updated_convos_to_csv_file(self.public_conversations, "public_convos.csv")
-							self.public_conversations = CSV.get_convos_from_csv_file("public_convos.csv")
-							self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
-						else:
-							for k, v in self.private_conversations.items():
-								if selected_chirp_id in v:
-									print("\nprivate")
-									print("\nSELECTED CHIRP ID: ", selected_chirp_id)
-									print("\nPRIVATE CONVOS: ", self.private_conversations)
-									updated_convo = ConvoUtility.show_private_reply_menu(
-										self.chirps,
-										self.private_conversations[selected_chirp_id],
-										self.current_user
-										)
-									self.private_conversations[k] = updated_convo
-									CSV.write_updated_convos_to_csv_file(self.private_conversations, "private_convos.csv")
-									self.private_conversations = CSV.get_convos_from_csv_file("private_convos.csv")
-									self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
+						self.public_conversations[selected_convo_id[0]] = updated_convo
+						CSV.write_updated_convos_to_csv_file(self.public_conversations, "public_convos.csv")
+						self.public_conversations = CSV.get_convos_from_csv_file("public_convos.csv")
+						self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
+					elif selected_convo_id[1] == "private":
+						chirp_list = self.private_conversations[selected_convo_id[0]]
+						updated_convo = ConvoUtility.show_private_reply_menu(
+								self.chirps,
+								chirp_list,
+								self.current_user.screen_name
+								)
+						self.private_conversations[selected_convo_id[0]] = updated_convo
+						CSV.write_updated_convos_to_csv_file(self.private_conversations, "private_convos.csv")
+						self.private_conversations = CSV.get_convos_from_csv_file("private_convos.csv")
+						self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
 
 				elif action == "4":
-					public_chirp = ChirpsUtility.new_public_chirp(self.current_user)
+					public_chirp = ChirpsUtility.new_public_chirp(self.current_user.screen_name)
 					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
 					convo = ConvoUtility.new_public_convo([public_chirp.chirp_id], self.current_user)
 					self.public_conversations[convo.convo_id] = convo.chirp_list
@@ -107,7 +102,7 @@ class MainMenu:
 					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
 
 				elif action == "5":
-					private_chirp = ChirpsUtility.new_private_chirp(self.current_user, self.users)
+					private_chirp = ChirpsUtility.new_private_chirp(self.current_user.screen_name, self.users)
 					self.chirps = CSV.get_chirps_from_csv_file("chirps.csv")
 					convo = ConvoUtility.new_private_convo([private_chirp.chirp_id], self.current_user)
 					self.private_conversations[convo.convo_id] = convo.chirp_list

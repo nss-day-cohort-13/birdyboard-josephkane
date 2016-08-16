@@ -24,7 +24,7 @@ class UserUtility:
 		user_list = list()
 		for k, v in users_dict.items():
 			if current_user:
-				if v[0] != current_user.screen_name:
+				if v[0] != current_user:
 					print("{0}: {1}".format(counter, v[0]))
 					user_list.append(k)
 					counter += 1
